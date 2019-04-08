@@ -14,3 +14,7 @@ git checkout $Env:DRONE_COMMIT_BRANCH
 
 git fetch origin "${Env:DRONE_COMMIT_REF}:"
 git merge $Env:DRONE_COMMIT_SHA
+
+if ($Env:PLUGIN_RECURSIVE) {
+    git submodule update --init --recursive
+}
