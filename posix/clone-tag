@@ -13,6 +13,8 @@ fi
 set -e
 set -x
 
+git prune
+
 git fetch ${FLAGS} origin +refs/tags/${DRONE_TAG}:
 git checkout -qf FETCH_HEAD
 
