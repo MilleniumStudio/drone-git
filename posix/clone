@@ -1,6 +1,12 @@
 #!/bin/sh
 
-cd /repo
+if [ ! -z "${USE_CACHE}" ]; then
+	# make sure all folders exists
+	mkdir -p /cache/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}/${DRONE_COMMIT_BRANCH}
+    cd /cache/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}/${DRONE_COMMIT_BRANCH}
+else
+    cd ${DRONE_WORKSPACE}
+fi
 
 # if the netrc enviornment variables exist, write
 # the netrc file.
@@ -65,4 +71,6 @@ tag)
 	;;
 esac
 
-rsync -aHA /repo ${DRONE_WORKSPACE}
+if [ ! -z "${USE_CACHE}" ]; then
+	rsync -aHA /cache/${DRONE_REPO_OWNER}/${DRONE_REPO_NAME}/${DRONE_COMMIT_BRANCH}/ ${DRONE_WORKSPACE}
+fi

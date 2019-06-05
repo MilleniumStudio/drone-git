@@ -14,7 +14,7 @@ set -e
 set -x
 
 git fetch ${FLAGS} origin +refs/heads/${DRONE_COMMIT_BRANCH}:
-git checkout ${DRONE_COMMIT_SHA} -b ${DRONE_COMMIT_BRANCH}
+git checkout ${DRONE_COMMIT_SHA}
 
 if [[ ! -z "${PLUGIN_RECURSIVE}" ]]; then
     git submodule update --init --recursive
